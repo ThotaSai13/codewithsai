@@ -1,2 +1,2 @@
 # codewithsai
-This is first my project
+This is my first project
