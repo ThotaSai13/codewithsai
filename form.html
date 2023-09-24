@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation Example</title>
+    <style>
+        .error {
+            color: red;
+        }
+        body{
+            background-color: azure;
+            color: #333;
+            text-align: left;
+            margin: 30px;
+        }
+        .sample{
+            display: block;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            font-size: 18px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Form Validation Example</h1>
+
+    <form id="myForm" onsubmit="validateForm(event)">
+        <div class="sample">
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="name" required>
+            <span id="nameError" class="error"></span>
+        </div>
+        <div class="sample">
+            <label for="email">Email: </label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+        </div>
+        <div class="sample">
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password" required>
+            <span id="passwordError" class="error"></span>
+        </div>
+        <divclass="sample">
+            <label for="confirmPassword">Confirm Password: </label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <span id="confirmPasswordError" class="error"></span>
+        </div>
+        <button type="submit">Submit </button>
+    </form>
+
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Clear previous error messages
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('passwordError').textContent = '';
+            document.getElementById('confirmPasswordError').textContent = '';
+
+            // Name validation
+            if (name.trim() === '') {
+                document.getElementById('nameError').textContent = 'Name is required';
+                return;
+            }
+
+            // Email validation
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').textContent = 'Invalid email format';
+                return;
+            }
+
+            // Password validation
+            if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Password should be at least 6 characters long';
+                return;
+            }
+
+            // Confirm Password validation
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+                return;
+            }
+
+            // If all validations pass, submit the form
+            document.getElementById('myForm').submit();
+        }
+    </script>
+</body>
+</html>
